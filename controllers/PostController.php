@@ -16,7 +16,15 @@ class PostController extends AppController
                 //debug($posts);
                 return $this->render('index', compact('posts', 'pages'));
 	}
-	public function actionTest () 
+        public function actionView() 
+        {
+            $id = \Yii::$app->request->get('id');
+            $post = Post::findOne($id);
+            if (empty($post)) throw new \yii\web\HttpException(404, 'Такой страницы нет...');
+            return $this->render('view', compact('post'));
+        }
+
+        public function actionTest () 
 	{
 		return $this->render('test');
 	}
